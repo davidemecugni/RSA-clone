@@ -5,7 +5,9 @@ import time
 import json
 from keys.key import Keys
 
-
+# Function to convert a string to an integer
+# The function converts the string to a list of numbers, each number is the UTF8 code(<1000) 
+# of the character, 999 is used as padding
 def strtoint(s):
     nums = ["999"]
     s = str(s.encode("utf8"))[2:-1]
@@ -19,7 +21,9 @@ def strtoint(s):
             nums.append(str(ord(c)))
     return int("".join(nums))
 
-
+# Function to convert an integer to a string
+# The function converts the integer to a string, each number is a UTF8 code(3 digits long) 
+# of the character
 def inttostr(s):
     s = "".join([chr(int(s[i-2]+s[i-1]+s[i])) for i in range(2, len(s), 3)])
     return s[1:]
@@ -58,9 +62,9 @@ parser.add_argument("--textinput", action='store_true', help="Uses text as input
 parser.add_argument("--textoutput", action='store_true', help="Uses text as output")
 parser.add_argument("-s", "--shell", action='store_true',
                     help="Runs an interactive shell")
-
 args = parser.parse_args()
 
+# Create a Keys object, used to generate and store the keys
 keys = Keys()
 
 if args.len:
@@ -145,6 +149,9 @@ if args.input:
         if args.verbose:
             print(f"Exported encrypted input in file: {args.output}")
 
+# If the shell argument is passed, the program will run in an interactive shell
+# The user can choose to encrypt a message with the public or private key
+# or with an external key
 if args.shell and args.importkeys:
     while True:
         try:
@@ -163,6 +170,7 @@ if args.shell and args.importkeys:
                 k = input("Insert first number of the key: ")
                 n = input("Insert second number of the key: ")
 
+                # Accepts both hexadecimal and decimal numbers
                 if any(c in 'abcdefABCDEF' for c in k):
                     k = int(k, 16)
                 else:

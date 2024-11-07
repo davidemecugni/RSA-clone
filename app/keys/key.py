@@ -16,7 +16,9 @@ class Keys:
         self.e = e
         self.private = private
         self.public = public
-
+    
+    # Generates a pair of keys, using Bertand's postulate to generate the prime numbers
+    # and the Extended Euclidean Algorithm to find the modular multiplicative inverse
     def generateKeys(self):
         p, q = sympy.randprime(
             (2**self.length), (2 * 2**self.length)), sympy.randprime((2**self.length), 2 * (2**self.length))
@@ -119,11 +121,7 @@ class Keys:
     def encryptWithPrivate(self, message):
         return self.encrypt(message, self.private[0], self.private[1])
 
+    # Gets the maximum length of a message that can be encrypted
+    # using the encoding policy of using 3 digits for each character and 1 for padding
     def getMaxMessageLength(self):
         return round(math.log(self.private[1], 1000) - 1)
-
-
-if __name__ == "__main__":
-    key = Keys()
-    key.loadKeysFromFile("short.key")
-    
