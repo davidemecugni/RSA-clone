@@ -1,6 +1,18 @@
 # RSA-clone
 A basic RSA implementation in Python. The purpose of this project is to understand the RSA algorithm and how it works. The code is heavily commented to explain the steps of the algorithm.
 
+## Example
+Let's say we want to encrypt the message "This is a beautiful secret that I want to hide from others." saved in the file `examples/input.txt`. We can use the following command:
+```
+py app/app.py -ik examples/keys.key -in examples/input.txt -o examples/encrypted.enc --textinput --private
+```
+This command will encrypt the message using the private key saved in the file `examples/keys.key` and save the result in the file encrypted.enc.
+
+To decrypt the message, we can use the following command:
+```
+py app/app.py -ik examples/keys.key -in examples/encrypted.enc -out examples/decrypted.txt --textoutput --public
+```
+This command will decrypt the message using the public key saved in the file `examples/keys.key` and save the result in the file `examples/decrypted.txt`, returning the initial string. :sparkles:
 ## How to use
 Here is the -help output of the program:
 ```
